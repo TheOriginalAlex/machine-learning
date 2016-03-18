@@ -20,13 +20,18 @@ with open(filename, 'rb') as csvfile:
 data = np.array(data, dtype='float64')
 x = data[:,0]
 y = data[:,1].reshape(m, 1)
-plt.plot(x, y, 'rx')
 
 X = np.transpose([np.ones(m), x])
 theta = np.dot(np.dot(np.linalg.pinv(np.dot(np.transpose(X), X)), np.transpose(X)), y)
 print("Theta using the normal equation:")
 print(theta)
+plt.figure(1)
 
+plt.subplot(121)
+plt.title("Normal Equation\n")
+plt.ylabel("Profit in $10,000s")
+plt.xlabel("Population of City in 10,000s")
+plt.plot(x, y, 'rx')
 plt.plot(x, np.dot(X, theta))
 
 prevtheta = theta = np.array([[0.],[0.]])
@@ -39,3 +44,12 @@ while calccost(prevtheta, m, X, y) != calccost(theta, m, X, y):
 
 print("Theta using gradient descent:")
 print(theta)
+
+plt.subplot(122)
+plt.title("Gradient Descent\n")
+plt.ylabel("Profit in $10,000s")
+plt.xlabel("Population of City in 10,000s")
+plt.plot(x, y, 'rx')
+plt.plot(x, np.dot(X, theta))
+
+plt.show()
