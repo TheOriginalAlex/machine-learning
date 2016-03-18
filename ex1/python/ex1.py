@@ -1,18 +1,41 @@
 import numpy as np
-import numpy.linalg as lg
 import matplotlib.pyplot as plt
 
-data = []
+def calccost(theta, m, X, y):
+    pred = np.dot(X, theta)
+    return (1./(2*m))*(np.sum(np.square(pred-y)))
 
-with open('ex1data1.txt', 'rb') as csvfile:
+data = []
+m = 0
+
+filename = raw_input("Please enter a filename to get data from:")
+
+with open(filename, 'rb') as csvfile:
     import csv
     datafile = csv.reader(csvfile, delimiter=',')
     for row in datafile:
+        m += 1
         data.append(row)
 
-data = np.array(data)
+data = np.array(data, dtype='float64')
 x = data[:,0]
-y = data[:,1]
+y = data[:,1].reshape(m, 1)
 plt.plot(x, y, 'rx')
-X = np.transpose([np.ones(x.shape[0]), x])
-print(X)
+
+X = np.transpose([np.ones(m), x])
+theta = np.dot(np.dot(np.linalg.pinv(np.dot(np.transpose(X), X)), np.transpose(X)), y)
+print("Theta using the normal equation:")
+print(theta)
+
+plt.plot(x, np.dot(X, theta))
+
+prevtheta = theta = np.array([[0.],[0.]])
+
+theta = theta - 0.01*((1./m)*np.sum((np.dot(X, theta)-y)*X, axis=0)).reshape(2,1);
+
+while calccost(prevtheta, m, X, y) != calccost(theta, m, X, y):
+    prevtheta = theta
+    theta = theta - 0.01*((1./m)*np.sum((np.dot(X, theta)-y)*X, axis=0)).reshape(2,1);
+
+print("Theta using gradient descent:")
+print(theta)
