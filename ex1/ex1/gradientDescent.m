@@ -18,14 +18,9 @@ for iter = 1:num_iters
     %
     
     
-    theta1 = theta(1)-alpha*((1/length(y))*sum((X*theta-y)));
-    theta2 = theta(2)-alpha*((1/length(y))*sum((X*theta-y)'*X(:,2)));
+    theta = theta-alpha*((1/m)*sum((X*theta-y).*X))';
     
-    theta = [theta1; theta2];
     
-    if J_history(iter) == theta
-      break;
-    end
     
     % ============================================================
 
