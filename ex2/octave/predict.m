@@ -16,7 +16,9 @@ p = zeros(m, 1);
 %
 
 
-
+result = sigmoid(X*theta);
+pos = find(result >= 0.5);
+p(pos,1) = 1;
 
 
 
