@@ -5,7 +5,7 @@ function submitWithConfiguration(conf)
 
   fprintf('== Submitting solutions | %s...\n', conf.itemName);
 
-  tokenFile = '../../../token.mat';
+  tokenFile = 'token.mat';
   if exist(tokenFile, 'file')
     load(tokenFile);
     [email token] = promptToken(email, token, tokenFile);
