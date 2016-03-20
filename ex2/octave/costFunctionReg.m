@@ -6,6 +6,7 @@ function [J, grad] = costFunctionReg(theta, X, y, lambda)
 
 % Initialize some useful values
 m = length(y); % number of training examples
+n = length(theta); % number of features
 
 % You need to return the following variables correctly 
 J = 0;
@@ -18,8 +19,9 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
-
-
+[J, grad] = costFunction(theta, X, y);
+J = J + (lambda/(2*m))*sum(theta(2:n).^2);
+grad(2:n) = grad(2:n)+(lambda/m)*theta(2:n);
 
 
 % =============================================================
