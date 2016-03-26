@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+
+import math
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.io import loadmat
+
+filename = raw_input("Please enter a filename to get data from:")
+data = loadmat(filename)
+X = np.array(data["X"])
+y = np.array(data["y"])
+
+
+randX = np.random.permutation(X)[0:400, :]
+(m,n) = randX.shape
+width = round(math.sqrt(n))
+height = n/width
+
+disprow = math.floor(math.sqrt(m))
+dispcolumn = math.ceil(m/disprow)
+pad = 1
+
+disparray = np.ones((pad + disprow * (height + pad), pad + dispcolumn * (width + pad)))
+
+currsample = 0
+for i in np.arange(disprow):
+    for j in np.arange(dispcolumn):
+        if currsample >= m:
+            break
+        maxval = max(abs(randX[currsample, :]))
+        ixgrid = np.ix_(np.array((pad + (i-1)) * (height + pad) + np.arange(height), dtype='int32'),
+                        np.array((pad + (j-1)) * (width + pad) + np.arange(width), dtype='int32'))
+        #print(ixgrid)
+        #raw_input("blah")
+        disparray[ixgrid] = randX[currsample, :].reshape(height,width)/maxval
+        currsample += 1
+    if currsample >= m:
+        break
+
+imgplot = plt.imshow(np.transpose(disparray))
+imgplot.set_cmap('Greys')
+plt.show()
