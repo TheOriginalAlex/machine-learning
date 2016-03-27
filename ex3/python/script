@@ -4,6 +4,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.io import loadmat
+import helper
 
 filename = raw_input("Please enter a filename to get data from:")
 data = loadmat(filename)
@@ -11,7 +12,7 @@ X = np.array(data["X"])
 y = np.array(data["y"])
 
 
-randX = np.random.permutation(X)[0:400, :]
+randX = np.random.permutation(X)[0:100, :]
 (m,n) = randX.shape
 width = round(math.sqrt(n))
 height = n/width
@@ -32,11 +33,12 @@ for i in np.arange(disprow):
                         np.array((pad + (j-1)) * (width + pad) + np.arange(width), dtype='int32'))
         #print(ixgrid)
         #raw_input("blah")
-        disparray[ixgrid] = randX[currsample, :].reshape(height,width)/maxval
+        disparray[ixgrid] = randX[currsample, :].reshape((height,width), order='F')/maxval
         currsample += 1
     if currsample >= m:
         break
 
-imgplot = plt.imshow(np.transpose(disparray))
+imgplot = plt.imshow(disparray)
 imgplot.set_cmap('Greys')
-plt.show()
+lmbda = 0.1
+print(helper.onevall(X,y,lmbda))
