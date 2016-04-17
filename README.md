@@ -1,2 +1,2 @@
 # Machine Learning
-My assignments for the [Coursera machine learning course](https://www.coursera.org/learn/machine-learning) by Andrew Ng.
+My progress with learning machine learning through online courses, tutorials and small projects.
