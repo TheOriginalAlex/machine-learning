@@ -7,16 +7,16 @@ from sklearn.datasets import make_moons
 
 # Generate a dataset and plot it
 np.random.seed(0)
-X, y = make_moons(500, noise=0.20)
+X, y = make_moons(100000, noise=0.20)
 c = np.c_[X, y]
 np.random.shuffle(c)
 X, y = c[:, :2], np.array(c[:, 2], dtype=int)
-Xtrain, Xtest = X[:300, :], X[300:, :]
-ytrain, ytest = y[:300], y[300:]
+Xtrain, Xtest = X[:2000, :], X[2000:, :]
+ytrain, ytest = y[:2000], y[2000:]
 plt.scatter(X[:,0], X[:,1], s=40, c=y, cmap=plt.cm.Spectral)
 nn_input_dim = 2
 nn_output_dim = 2
-model = helper.build_model(5, nn_input_dim, nn_output_dim, Xtrain, ytrain, reg_lambda=0.01, print_loss=True)
+model = helper.build_model(5, nn_input_dim, nn_output_dim, Xtrain, ytrain, learn_rate=0.0005, reg_lambda=0.5, print_loss=True)
 p = helper.predict(model, Xtest)
 print("Percent of correct test data: %.2f%%" % ((ytest[np.where(p==ytest)].size/float(ytest.size))*100.))
 # Plot the decision boundary
