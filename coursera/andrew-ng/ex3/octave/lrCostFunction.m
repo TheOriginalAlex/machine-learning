@@ -9,8 +9,6 @@ function [J, grad] = lrCostFunction(theta, X, y, lambda)
 m = length(y); % number of training examples
 n = length(theta); % number of features
 
-X = [ones(m, 1) X]
-
 % You need to return the following variables correctly
 J = 0;
 grad = zeros(size(theta));
