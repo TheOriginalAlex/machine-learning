@@ -6,11 +6,11 @@ Course information can be found at https://www.udacity.com/course/deep-learning-
 Running the Docker container on a Windows machine
 -------------------------------------------------------------
 
-    docker run --rm -v ${PWD}:/notebooks -p 8888:8888 tensorflow/tensorflow
+    docker run --rm -it -v ${PWD}:/notebooks -p 8888:8888 tensorflow/tensorflow
     
 Running the Docker container on a UNIX machine
 -------------------------------------------------------------
-    docker run --rm -v `pwd`:/notebooks -p 8888:8888 tensorflow/tensorflow
+    docker run --rm -it -v `pwd`:/notebooks -p 8888:8888 tensorflow/tensorflow
 
 Accessing the Notebooks
 -----------------------
